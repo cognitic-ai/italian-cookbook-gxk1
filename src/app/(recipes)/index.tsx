@@ -39,68 +39,75 @@ export default function RecipesScreen() {
     .filter((section) => section.data.length > 0);
 
   return (
-    <View style={{ flex: 1, backgroundColor: AC.systemGroupedBackground as any }}>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={{
-          flexGrow: 0,
-          borderBottomWidth: 1,
-          borderBottomColor: AC.separator as any,
-        }}
-        contentContainerStyle={{
-          paddingHorizontal: 16,
-          paddingVertical: 12,
-          gap: 8,
-        }}
-      >
-        <CategoryChip
-          label="All"
-          isSelected={selectedCategory === "All"}
-          onPress={() => setSelectedCategory("All")}
-        />
-        {categories.map((category) => (
-          <CategoryChip
-            key={category}
-            label={category}
-            isSelected={selectedCategory === category}
-            onPress={() => setSelectedCategory(category)}
-          />
-        ))}
-      </ScrollView>
-
-      <SectionList
-        sections={sections}
-        contentInsetAdjustmentBehavior="automatic"
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <RecipeCard recipe={item} />}
-        renderSectionHeader={({ section: { title } }) => (
-          <View
-            style={{
+    <SectionList
+      sections={sections}
+      contentInsetAdjustmentBehavior="automatic"
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <RecipeCard recipe={item} />}
+      ListHeaderComponent={
+        <View
+          style={{
+            paddingTop: 12,
+            paddingBottom: 16,
+            borderBottomWidth: 1,
+            borderBottomColor: AC.separator as any,
+            backgroundColor: AC.systemGroupedBackground as any,
+          }}
+        >
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
               paddingHorizontal: 20,
-              paddingTop: 24,
-              paddingBottom: 8,
-              backgroundColor: AC.systemGroupedBackground as any,
+              gap: 8,
             }}
           >
-            <Text
-              style={{
-                fontSize: 22,
-                fontWeight: "700",
-                color: AC.label as any,
-              }}
-            >
-              {title}
-            </Text>
-          </View>
-        )}
-        contentContainerStyle={{
-          paddingHorizontal: 20,
-          paddingBottom: 20,
-        }}
-        stickySectionHeadersEnabled={false}
-      />
-    </View>
+            <CategoryChip
+              label="All"
+              isSelected={selectedCategory === "All"}
+              onPress={() => setSelectedCategory("All")}
+            />
+            {categories.map((category) => (
+              <CategoryChip
+                key={category}
+                label={category}
+                isSelected={selectedCategory === category}
+                onPress={() => setSelectedCategory(category)}
+              />
+            ))}
+          </ScrollView>
+        </View>
+      }
+      renderSectionHeader={({ section: { title } }) => (
+        <View
+          style={{
+            paddingHorizontal: 20,
+            paddingTop: 24,
+            paddingBottom: 8,
+            backgroundColor: AC.systemGroupedBackground as any,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 22,
+              fontWeight: "700",
+              color: AC.label as any,
+            }}
+          >
+            {title}
+          </Text>
+        </View>
+      )}
+      contentContainerStyle={{
+        paddingHorizontal: 20,
+        paddingBottom: 20,
+      }}
+      style={{
+        flex: 1,
+        backgroundColor: AC.systemGroupedBackground as any,
+      }}
+      stickySectionHeadersEnabled={false}
+    />
   );
 }
 
